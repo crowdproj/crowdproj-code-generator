@@ -6,5 +6,7 @@ build/
 !**/src/*Main/**/build/
 !**/src/*Test/**/build/
 
+/kotlin-js-store/
+
 ### IntelliJ IDEA ###
 .idea/

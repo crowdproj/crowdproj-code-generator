@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.crowdproj.openapi.generator
+package com.crowdproj.plugins.generator
 
 import org.apache.commons.lang3.StringUtils
 import org.openapitools.codegen.*
@@ -31,6 +31,7 @@ import java.util.*
 import java.util.function.Predicate
 import java.util.stream.Stream
 
+@Suppress("unused")
 class KotlinClientCodegen : AbstractKotlinCodegen() {
     private val LOGGER = LoggerFactory.getLogger(KotlinClientCodegen::class.java)
     private var dateLibrary = DateLibrary.JAVA8.value
