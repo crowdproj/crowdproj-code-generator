@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.crowdproj.generator"
-version = "0.0.4"
+version = "0.0.6"
 
 repositories {
     mavenCentral()
@@ -47,7 +47,7 @@ gradlePlugin {
         create("com.crowdproj.generator") {
             id = "com.crowdproj.generator"
             displayName = "CrowdProj code generation"
-            description = "Code generator that generates code for CrowdProj projects in a modular style"
+            description = "OpenAPI specs based code generator that generates code in a modular style used in CrowdProj projects"
             @Suppress("UnstableApiUsage")
             tags.set(listOf("openapi", "crowdproj", "kotlin", "multiplatform", "modular"))
             implementationClass = "com.crowdproj.plugins.CrowdprojGeneratorPlugin"
@@ -128,13 +128,6 @@ val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
 //}
 
 tasks {
-//    closeAndReleaseRepository {
-//        dependsOn(publish)
-//    }
-
-//    this.forEach {
-//        println("${it.name} ${it::class}")
-//    }
     withType<Test> {
         useJUnitPlatform()
         reports {
@@ -143,17 +136,17 @@ tasks {
 //        setupTestLogging()
     }
 
+    build {
+        println("VERSION!!!: ${project.version} ${project.group}")
+    }
+
     publishPlugins {
         dependsOn(build)
     }
-//    publish {
-//        dependsOn(build)
-//    }
 
     create("deploy") {
         group = "build"
         dependsOn(publishPlugins)
-//        dependsOn(closeAndReleaseRepository)
     }
 
 }
