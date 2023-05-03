@@ -1,20 +1,22 @@
 # Modular Kotlin code generator based on OpenAPI
 
-This code generates kotlin code in modular style that is used in CrowdProj projects. Right now (version 0.0.6) onlyAPI
-models generation is fixed in respect to default OpenAPI generators. So, the OpenAPI specs with discriminators are now
-correctly generated with the sealed classes and correct discriminator field. The generated models use Kotlin
+This code generates kotlin code in modular style that is used in CrowdProj projects. Right now (version 0.0.6) only API
+models generation is fixed in respect to the default OpenAPI generators. So, the OpenAPI specs with discriminators are
+now correctly generated with the sealed classes and correct discriminator field. The generated models use Kotlin
 multiplatform kotlinx.serialization library and are prepared for the multiplatform projects.
 
 ## Roadmap
 
 The further plans include:
+
 1. Generation of the internal models
 2. Support several backend frameworks
 3. Generation of the storage models together with different databases repositories.
+4. Frontend and mobile apps forms generation
 
 ## Usage
 
-See the example of usege in [the test project](crowdproj-generator-test). 
+See the example of usage in [the test project](crowdproj-generator-test).
 
 ## License
 
