@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
-    id("crowdproj-generator")
+    id("com.crowdproj.generator")
     java
 }
 

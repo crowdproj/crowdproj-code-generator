@@ -1,13 +1,14 @@
 plugins {
     kotlin("jvm")
-    id("com.github.johnrengelman.shadow")
+//    id("com.github.johnrengelman.shadow")
     `java-gradle-plugin`
     `kotlin-dsl`
-    `maven-publish`
-    java
-    id("signing")
+    id("com.gradle.plugin-publish")
+//    `maven-publish`
+//    java
+//    id("signing")
     id("org.jetbrains.dokka")
-    id("io.codearte.nexus-staging")
+//    id("io.codearte.nexus-staging")
 }
 
 group = "com.crowdproj.generator"
@@ -17,15 +18,15 @@ repositories {
     mavenCentral()
 }
 
-signing {
-    sign(publishing.publications)
-}
+//signing {
+//    sign(publishing.publications)
+//}
 
-nexusStaging {
-    serverUrl = "https://s01.oss.sonatype.org/service/local/"
-    packageGroup = "com.crowdproj" //optional if packageGroup == project.getGroup()
-//    stagingProfileId = "yourStagingProfileId" //when not defined will be got from server using "packageGroup"
-}
+//nexusStaging {
+//    serverUrl = "https://s01.oss.sonatype.org/service/local/"
+//    packageGroup = "com.crowdproj" //optional if packageGroup == project.getGroup()
+////    stagingProfileId = "yourStagingProfileId" //when not defined will be got from server using "packageGroup"
+//}
 
 dependencies {
     val kotlinVersion: String by project
@@ -38,13 +39,16 @@ dependencies {
 }
 
 gradlePlugin {
+    @Suppress("UnstableApiUsage")
     website.set("https://github.com/crowdproj/crowdproj-code-generator")
+    @Suppress("UnstableApiUsage")
     vcsUrl.set("https://github.com/crowdproj/crowdproj-code-generator.git")
     plugins {
-        create("crowdproj-generator") {
-            id = "crowdproj-generator"
+        create("com.crowdproj.generator") {
+            id = "com.crowdproj.generator"
             displayName = "CrowdProj code generation"
             description = "Code generator that generates code for CrowdProj projects in a modular style"
+            @Suppress("UnstableApiUsage")
             tags.set(listOf("openapi", "crowdproj", "kotlin", "multiplatform", "modular"))
             implementationClass = "com.crowdproj.plugins.CrowdprojGeneratorPlugin"
             version = project.version
@@ -72,61 +76,61 @@ val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
     from(dokkaHtml.outputDirectory)
 }
 
-publishing {
-    repositories {
-        val repoHost: String = System.getenv("NEXUS_HOST") ?: "https://maven.pkg.github.com/crowdproj/kotlin-cor"
-        val repoUser: String? = System.getenv("NEXUS_USER") ?: System.getenv("GITHUB_ACTOR")
-        val repoPass: String? = System.getenv("NEXUS_PASS") ?: System.getenv("GITHUB_TOKEN")
-        if (repoUser != null && repoPass != null) {
-            maven {
-                name = "GitHubPackages"
-                url = uri(repoHost)
-                credentials {
-                    username = repoUser
-                    password = repoPass
-                }
-            }
-        }
-
-    }
-    publications {
-        withType(MavenPublication::class).configureEach {
-            artifact(javadocJar)
-            project.shadow.component(this)
-            pom {
-                name.set("CrowdProj code generation")
-                description.set("Code generator that generates code for CrowdProj projects in a modular style")
-                url.set("https://github.com/crowdproj/crowdproj-code-generator")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        name.set("Sergey Okatov")
-                        email.set("sokatov@gmail.com")
-                        id.set("svok")
-                        organization.set("CrowdProj")
-                        organizationUrl.set("https://crowdproj.com")
-                        timezone.set("GMT+5")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://github.com/crowdproj/kotlin-cor.git")
-                    developerConnection.set("scm:git:ssh://github.com/crowdproj/kotlin-cor.git")
-                    url.set("https://github.com/crowdproj/kotlin-cor")
-                }
-            }
-        }
-    }
-}
+//publishing {
+//    repositories {
+//        val repoHost: String = System.getenv("NEXUS_HOST") ?: "https://maven.pkg.github.com/crowdproj/kotlin-cor"
+//        val repoUser: String? = System.getenv("NEXUS_USER") ?: System.getenv("GITHUB_ACTOR")
+//        val repoPass: String? = System.getenv("NEXUS_PASS") ?: System.getenv("GITHUB_TOKEN")
+//        if (repoUser != null && repoPass != null) {
+//            maven {
+//                name = "GitHubPackages"
+//                url = uri(repoHost)
+//                credentials {
+//                    username = repoUser
+//                    password = repoPass
+//                }
+//            }
+//        }
+//
+//    }
+//    publications {
+//        withType(MavenPublication::class).configureEach {
+//            artifact(javadocJar)
+//            project.shadow.component(this)
+//            pom {
+//                name.set("CrowdProj code generation")
+//                description.set("Code generator that generates code for CrowdProj projects in a modular style")
+//                url.set("https://github.com/crowdproj/crowdproj-code-generator")
+//                licenses {
+//                    license {
+//                        name.set("The Apache License, Version 2.0")
+//                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        name.set("Sergey Okatov")
+//                        email.set("sokatov@gmail.com")
+//                        id.set("svok")
+//                        organization.set("CrowdProj")
+//                        organizationUrl.set("https://crowdproj.com")
+//                        timezone.set("GMT+5")
+//                    }
+//                }
+//                scm {
+//                    connection.set("scm:git:git://github.com/crowdproj/kotlin-cor.git")
+//                    developerConnection.set("scm:git:ssh://github.com/crowdproj/kotlin-cor.git")
+//                    url.set("https://github.com/crowdproj/kotlin-cor")
+//                }
+//            }
+//        }
+//    }
+//}
 
 tasks {
-    closeAndReleaseRepository {
-        dependsOn(publish)
-    }
+//    closeAndReleaseRepository {
+//        dependsOn(publish)
+//    }
 
 //    this.forEach {
 //        println("${it.name} ${it::class}")
@@ -139,13 +143,16 @@ tasks {
 //        setupTestLogging()
     }
 
-    publish {
+    publishPlugins {
         dependsOn(build)
     }
+//    publish {
+//        dependsOn(build)
+//    }
 
     create("deploy") {
         group = "build"
-        dependsOn(publish)
+        dependsOn(publishPlugins)
 //        dependsOn(closeAndReleaseRepository)
     }
 
