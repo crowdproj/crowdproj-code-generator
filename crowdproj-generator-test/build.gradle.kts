@@ -1,9 +1,12 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization")
+//    kotlin("plugin.serialization")
     id("com.crowdproj.generator")
-    java
+//    java
 }
+
+group = rootProject.group
+version = rootProject.version
 
 repositories {
     mavenCentral()
@@ -52,6 +55,11 @@ kotlin {
             }
         }
     }
+}
+
+crowdprojGenerate {
+    inputSpec.set("$projectDir/spec-crowdproj-ad-v1.yaml")
+    packageName.set(project.group.toString())
 }
 
 /**
