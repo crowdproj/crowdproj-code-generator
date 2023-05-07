@@ -1,9 +1,12 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization")
+//    kotlin("plugin.serialization")
     id("com.crowdproj.generator")
-    java
+//    java
 }
+
+group = rootProject.group
+version = rootProject.version
 
 repositories {
     mavenCentral()
@@ -54,6 +57,11 @@ kotlin {
     }
 }
 
+crowdprojGenerate {
+    inputSpec.set("$projectDir/spec-crowdproj-ad-v1.yaml")
+    packageName.set(project.group.toString())
+}
+
 /**
  * Настраиваем генерацию здесь
  */
@@ -74,8 +82,8 @@ openApiGenerate {
      */
     globalProperties.set(mapOf(
 //        "debugModels" to "true",
-        "models" to "",
-        "modelDocs" to "false",
+//        "models" to "",
+//        "modelDocs" to "false",
     ))
 
     /**

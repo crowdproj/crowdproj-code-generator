@@ -1,14 +1,9 @@
 plugins {
     kotlin("jvm")
-//    id("com.github.johnrengelman.shadow")
     `java-gradle-plugin`
     `kotlin-dsl`
     id("com.gradle.plugin-publish")
-//    `maven-publish`
-//    java
-//    id("signing")
     id("org.jetbrains.dokka")
-//    id("io.codearte.nexus-staging")
 }
 
 group = "com.crowdproj.generator"
@@ -18,16 +13,6 @@ repositories {
     mavenCentral()
 }
 
-//signing {
-//    sign(publishing.publications)
-//}
-
-//nexusStaging {
-//    serverUrl = "https://s01.oss.sonatype.org/service/local/"
-//    packageGroup = "com.crowdproj" //optional if packageGroup == project.getGroup()
-////    stagingProfileId = "yourStagingProfileId" //when not defined will be got from server using "packageGroup"
-//}
-
 dependencies {
     val kotlinVersion: String by project
     val openapiVersion: String by project
@@ -36,6 +21,7 @@ dependencies {
     implementation("org.openapitools:openapi-generator-core:$openapiVersion")
     implementation("org.openapitools:openapi-generator:$openapiVersion")
     implementation("org.openapitools:openapi-generator-gradle-plugin:$openapiVersion")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:1.8.21")
 }
 
 gradlePlugin {
@@ -71,11 +57,6 @@ tasks {
         reports {
             junitXml.required.set(true)
         }
-//        setupTestLogging()
-    }
-
-    build {
-        println("VERSION!!!: ${project.version} ${project.group}")
     }
 
     publishPlugins {
