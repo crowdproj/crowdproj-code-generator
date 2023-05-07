@@ -74,8 +74,8 @@ openApiGenerate {
      */
     globalProperties.set(mapOf(
 //        "debugModels" to "true",
-        "models" to "",
-        "modelDocs" to "false",
+//        "models" to "",
+//        "modelDocs" to "false",
     ))
 
     /**
