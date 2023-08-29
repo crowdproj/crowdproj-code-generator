@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "com.crowdproj.generator"
-version = "0.1.0"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -16,12 +16,13 @@ repositories {
 dependencies {
     val kotlinVersion: String by project
     val openapiVersion: String by project
+    val serializationVersion: String by project
 
     implementation(kotlin("stdlib", version = kotlinVersion))
     implementation("org.openapitools:openapi-generator-core:$openapiVersion")
     implementation("org.openapitools:openapi-generator:$openapiVersion")
     implementation("org.openapitools:openapi-generator-gradle-plugin:$openapiVersion")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:1.8.21")
+    implementation("org.jetbrains.kotlin:kotlin-serialization:$serializationVersion")
 }
 
 gradlePlugin {
