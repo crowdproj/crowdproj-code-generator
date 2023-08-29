@@ -14,7 +14,7 @@ repositories {
 
 kotlin {
     jvm { withJava() }
-    js(IR) {
+    js {
         browser {}
     }
     linuxX64 { }
@@ -22,10 +22,9 @@ kotlin {
     sourceSets {
         val serializationVersion: String by project
 
-        @Suppress("UNUSED_VARIABLE")
         val commonMain by getting {
 
-            kotlin.srcDirs("$buildDir/generate-resources/main/src/commonMain/kotlin")
+            kotlin.srcDirs("${layout.buildDirectory.get()}/generate-resources/main/src/commonMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
 
@@ -34,7 +33,6 @@ kotlin {
             }
         }
 
-        @Suppress("UNUSED_VARIABLE")
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -42,13 +40,11 @@ kotlin {
             }
         }
 
-        @Suppress("UNUSED_VARIABLE")
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
-        @Suppress("UNUSED_VARIABLE")
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
@@ -60,43 +56,6 @@ kotlin {
 crowdprojGenerate {
     inputSpec.set("$projectDir/spec-crowdproj-ad-v1.yaml")
     packageName.set(project.group.toString())
-}
-
-/**
- * Настраиваем генерацию здесь
- */
-openApiGenerate {
-    val openapiGroup = "${rootProject.group}.api.v1"
-    generatorName.set("kotlin-crowdproj") // Это и есть активный генератор
-    packageName.set(openapiGroup)
-    apiPackage.set("$openapiGroup.api")
-    modelPackage.set("$openapiGroup.models")
-    invokerPackage.set("$openapiGroup.invoker")
-    inputSpec.set("$projectDir/spec-crowdproj-ad-v1.yaml")
-    library.set("multiplatform")
-//    templateDir.set("$projectDir/templates")
-//    engine.set("pebble")
-
-    /**
-     * Здесь указываем, что нам нужны только модели, все остальное не нужно
-     */
-    globalProperties.set(mapOf(
-//        "debugModels" to "true",
-//        "models" to "",
-//        "modelDocs" to "false",
-    ))
-
-    /**
-     * Настройка дополнительных параметров из документации по генератору
-     * https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/kotlin.md
-     */
-    configOptions.set(
-        mapOf(
-            "dateLibrary" to "string",
-            "enumPropertyNaming" to "UPPERCASE",
-            "collectionType" to "list",
-        )
-    )
 }
 
 afterEvaluate {
