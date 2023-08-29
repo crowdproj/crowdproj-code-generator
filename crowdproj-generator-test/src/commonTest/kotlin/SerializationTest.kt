@@ -1,5 +1,7 @@
-import com.crowdproj.generator.api.v1.models.AdCreateRequest
-import com.crowdproj.generator.api.v1.models.IRequestAd
+//import com.crowdproj.generator.api.v1.models.AdCreateRequest
+//import com.crowdproj.generator.api.v1.models.IRequestAd
+import com.crowdproj.generator.models.AdCreateRequest
+import com.crowdproj.generator.models.IRequestAd
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
