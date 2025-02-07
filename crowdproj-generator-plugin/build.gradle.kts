@@ -1,34 +1,36 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlin.jvm)
     `java-gradle-plugin`
     `kotlin-dsl`
-    id("com.gradle.plugin-publish")
-    id("org.jetbrains.dokka")
+    alias(libs.plugins.publish)
+    alias(libs.plugins.dokka)
 }
 
 group = "com.crowdproj.generator"
-version = "0.2.0"
+version = libs.versions.crowdproj.generator.get()
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    val kotlinVersion: String by project
-    val openapiVersion: String by project
-    val serializationVersion: String by project
+//    val kotlinVersion: String by project
+//    val openapiVersion: String by project
+//    val serializationVersion: String by project
 
-    implementation(kotlin("stdlib", version = kotlinVersion))
-    implementation("org.openapitools:openapi-generator-core:$openapiVersion")
-    implementation("org.openapitools:openapi-generator:$openapiVersion")
-    implementation("org.openapitools:openapi-generator-gradle-plugin:$openapiVersion")
-    implementation("org.jetbrains.kotlin:kotlin-serialization:$serializationVersion")
+//    implementation(kotlin("stdlib", version = kotlinVersion))
+    implementation(libs.openapi.main)
+    implementation(libs.openapi.core)
+    implementation(libs.openapi.plugin)
+    implementation(libs.kotlin.serialization)
+//    implementation("org.openapitools:openapi-generator-core:$openapiVersion")
+//    implementation("org.openapitools:openapi-generator:$openapiVersion")
+//    implementation("org.openapitools:openapi-generator-gradle-plugin:$openapiVersion")
+//    implementation("org.jetbrains.kotlin:kotlin-serialization:$serializationVersion")
 }
 
 gradlePlugin {
-    @Suppress("UnstableApiUsage")
     website.set("https://github.com/crowdproj/crowdproj-code-generator")
-    @Suppress("UnstableApiUsage")
     vcsUrl.set("https://github.com/crowdproj/crowdproj-code-generator.git")
     plugins {
         create("com.crowdproj.generator") {
@@ -64,7 +66,7 @@ tasks {
         dependsOn(build)
     }
 
-    create("deploy") {
+    register("deploy") {
         group = "build"
         dependsOn(publishPlugins)
     }
@@ -73,5 +75,5 @@ tasks {
 
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(libs.versions.jvm.toolchain.get().toInt())
 }

@@ -1,8 +1,6 @@
 plugins {
-    kotlin("multiplatform")
-//    kotlin("plugin.serialization")
+    alias(libs.plugins.kotlin.multiplatform)
     id("com.crowdproj.generator")
-//    java
 }
 
 group = rootProject.group
@@ -13,6 +11,7 @@ repositories {
 }
 
 kotlin {
+    jvmToolchain(libs.versions.jvm.toolchain.get().toInt())
     jvm { withJava() }
     js {
         browser {}
@@ -27,9 +26,8 @@ kotlin {
             kotlin.srcDirs("${layout.buildDirectory.get()}/generate-resources/main/src/commonMain/kotlin")
             dependencies {
                 implementation(kotlin("stdlib-common"))
-
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+                implementation(libs.kotlinx.serialization.core)
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
@@ -61,9 +59,6 @@ crowdprojGenerate {
 afterEvaluate {
     val openApiGenerate = tasks.getByName("openApiGenerate")
     tasks.filter { it.name.startsWith("compile") }.forEach {
-        it.dependsOn(openApiGenerate)
-    }
-    tasks.filter { it.name.endsWith("Elements") }.forEach {
         it.dependsOn(openApiGenerate)
     }
 }

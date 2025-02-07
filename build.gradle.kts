@@ -1,12 +1,12 @@
 group = "com.crowdproj.generator"
-version = "0.2.0"
+version = libs.versions.crowdproj.generator.get()
 
 repositories {
     mavenCentral()
 }
 
 tasks {
-    create("deploy") {
+    register("deploy") {
         dependsOn(gradle.includedBuild("crowdproj-generator-plugin").task(":deploy"))
     }
 }

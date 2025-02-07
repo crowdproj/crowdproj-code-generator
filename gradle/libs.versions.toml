@@ -1,0 +1,36 @@
+[versions]
+crowdproj-generator = "0.3.0"
+kotlin = "2.1.0"
+
+kotlinx-serialization = "1.8.0"
+kotlin-serialization = "2.1.10"
+
+binaryCompabilityValidator = "0.13.2"
+
+openapi-generator = "7.11.0"
+
+#plugins
+publish = "1.3.1"
+#dokka = "1.8.20"
+dokka = "2.0.0"
+
+# BASE
+jvm-toolchain = "21"
+
+[libraries]
+openapi-core = { module = "org.openapitools:openapi-generator-core", version.ref = "openapi-generator" }
+openapi-main = { module = "org.openapitools:openapi-generator", version.ref = "openapi-generator" }
+openapi-plugin = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi-generator" }
+kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin-serialization" }
+plugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "binaryCompabilityValidator" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+publish = { id = "com.gradle.plugin-publish", version.ref = "publish" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+
