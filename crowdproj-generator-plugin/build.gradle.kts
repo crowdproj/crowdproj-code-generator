@@ -33,7 +33,7 @@ gradlePlugin {
     website.set("https://github.com/crowdproj/crowdproj-code-generator")
     vcsUrl.set("https://github.com/crowdproj/crowdproj-code-generator.git")
     plugins {
-        create("com.crowdproj.generator") {
+        register("com.crowdproj.generator") {
             id = "com.crowdproj.generator"
             displayName = "CrowdProj code generation"
             description = "OpenAPI specs based code generator that generates code in a modular style used in CrowdProj projects"
